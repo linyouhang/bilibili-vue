@@ -8,8 +8,8 @@ const router = Router()
 router.get('/live', async (ctx, next) => {
   let response = await axios.get(liveXhr)
   let data = response.data
-  let result = data.substr(1).substr(0, data.length - 3)
-  ctx.body = JSON.parse(result)
+  // let result = data.substr(1).substr(0, data.length - 3)
+  ctx.body = data
 })
 
 export default router

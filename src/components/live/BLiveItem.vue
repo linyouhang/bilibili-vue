@@ -1,7 +1,7 @@
 <template>
 	<div class="lv-item">
 		<a class="lv-preview">
-			<img :src="live.pic">
+			<img :src="live.cover">
 			<div class="lv-mask">
 				<div class="lv-face">
 					<img :src="live.face" style="opacity: 1;">

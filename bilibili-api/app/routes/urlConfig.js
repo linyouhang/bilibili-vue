@@ -20,7 +20,7 @@ export const promote = 'http://api.bilibili.com/x/web-show/res/loc?pf=0&id=34'
 export const promoteAd = 'http://api.bilibili.com/x/web-show/res/loc?pf=0&id=29'
 
 // 直播
-export const liveXhr = 'http://api.live.bilibili.com/bili/recom'
+export const liveXhr = 'https://api.live.bilibili.com/xlive/web-interface/v1/webMain/getList?platform=web'
 
 // 番剧下方更新列表右侧新番放送表上侧
 export const slideshow = 'http://www.bilibili.com/index/slideshow/41.json'

@@ -44,7 +44,7 @@
 						</div>
 						<div class="live-pmt-live">
 							<li v-for="anchor in recommendAnchor">
-								<div class="pmt-item"><a class="preview" :href="anchor.link" target="_blank" :title="anchor.title"><img :src="anchor.face" :alt="anchor.link"><p class="title">{{anchor.uname}}</p></a></div>
+								<div class="pmt-item"><a class="preview" :href="anchor.link" target="_blank" :title="anchor.title"><img :src="anchor.pic" :alt="anchor.link"><p class="title">{{anchor.title}}</p></a></div>
 							</li>
 						</div>
 					</ul>
