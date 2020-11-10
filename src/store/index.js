@@ -12,12 +12,14 @@ import contentStore from './modules/contentStore'
 
 const state = {
 	requesting: false,
-	error: {}
+	error: {},
+	isShowGame: false
 }
 
 const getters = {
 	requesting: state => state.requesting,
-	error: state => state.error
+	error: state => state.error,
+	isShowGame: state => state.isShowGame
 }
 
 export default new Vuex.Store({
@@ -29,5 +31,13 @@ export default new Vuex.Store({
 		promoteStore,
 		liveStore,
 		contentStore
+	},
+	mutations: {
+		showGame(state){
+			state.isShowGame = true
+		},
+		unShowGame(state){
+			state.isShowGame = false
+		}
 	}
 })

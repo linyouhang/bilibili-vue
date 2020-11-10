@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <TopContainer></TopContainer>
-    <BHeader></BHeader>
+    <Header></Header>
+    <HeaderMenu></HeaderMenu>
+    <transition name="fade1">
+      <GameSide v-show="isShowGame" class="game-side"></GameSide>
+    </transition>
     <BContent :rows="rows"></BContent>
     <BNavSide :options="options" v-on:change="isShowMask"></BNavSide>
     <div class="wnd-mask" ref="mask" v-show="showMask"></div>
@@ -9,8 +12,10 @@
 </template>
 
 <script>
-import TopContainer from 'components/common/TopContainer.vue'
-import BHeader from 'components/common/BHeader.vue'
+// import TopContainer from 'components/common/TopContainer.vue'
+import Header from 'components/common/Header.vue'
+import HeaderMenu from 'components/common/HeaderMenu.vue'
+import GameSide from 'components/common/GameSide.vue'
 import BContent from 'components/content/BContent.vue'
 import BNavSide from 'components/nav/BNavSide'
 
@@ -18,17 +23,18 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'app',
   components: {
-    TopContainer,
-    BHeader,
+    Header,
     BContent,
-    BNavSide
+    BNavSide,
+    HeaderMenu,
+    GameSide
   },
   mounted() {
     this.$store.dispatch('getContentRows')
   },
   data() {
     return {
-      showMask: false
+      showMask: false,
     }
   },
   watch: {
@@ -43,7 +49,8 @@ export default {
     ...mapGetters([
       'requesting',
       'error',
-      'rows'
+      'rows',
+      'isShowGame'
     ]),
     options() {
       let options = {
@@ -57,12 +64,25 @@ export default {
   methods: {
     isShowMask() {
       this.showMask = !this.showMask
+    },
+    showGmage(data) {
+      showGame = data
     }
   }
 }
 </script>
 
 <style lang="stylus">
+  .fade1-enter-active, .fade1-leave-active {
+    transition: all 1s ease-out;
+  }
+  .fade1-enter, .fade1-leave-to /* .fade1-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+  .game-side{
+    position absolute
+    top 50px
+  }
   #app 
     font-family "Microsoft YaHei",Arial,Helvetica,sans-serif
     -webkit-font-smoothing antialiased

@@ -3,7 +3,7 @@
 		<div class="container-top-wrapper">
 			<div class="container-top">
 				<div class="b-l">
-					<Banner></Banner>
+					<Banner width='425' height='240'></Banner>
 				</div>
 				<div class="b-r">
 					<BContentTop></BContentTop>

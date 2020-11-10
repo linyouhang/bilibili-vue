@@ -1,160 +1,82 @@
 <template>
-	<div class="banner" @mouseover="show=true" @mouseout="show=false">
-		<div class="topic-preview-wrapper">
-			<div class="topic-preview-list-wrapper">
-				<ul class="topic-preview" style="width: 500%;" ref="banner"> 
-					<BannerItem v-for="item in bannerlist" :banner="item"></BannerItem>
-				</ul>
-			</div>
-			<a class="more-topic" href="/topic/integrated-1.html" target="_blank" v-show="show">更多
-				<i class="b-icon"></i>
-			</a>
-			<div class="s-bottom">
-				<div class="title" v-if="bannerlist[count]">
-					<span class="">
-						<img src="//static.hdslb.com/images/base/ad.png" style="width: 32px; height: 20px: margin-left: 5px;vertical-align: middle;" v-if="bannerlist[count].is_ad">
-						<a :href="bannerlist[count].url" target="_blank">{{ bannerlist[count].name }}</a>
-					</span>
-				</div>
-				<ul class="slide-bar">
-					<li :class="{on: count == index}" v-for="(item, index) in bannerlist" @click="cutItem(index)"></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+  <div class="wrap" :style="'width:'+width+'px;height:'+height+'px'">
+    <img :src="arr[idx].url" alt="" :width="width+'px'" :height="height+'px'">
+    <p>{{arr[idx].text}}</p>
+    <div class="point-wrap">
+      <div :class="index-1==idx?'point pointChecked':'point'" v-for="(index) in arr.length" :key="index" @click="changeIdx(index-1)" ></div>
+    </div>
+  </div>
 </template>
-
 <script>
-import BannerItem from 'components/banner/BannerItem'
-import { mapGetters } from 'vuex'
 export default {
-	data() {
+  props: {
+    width: {
+      type: String
+    },
+    height: {
+      type: String
+    }
+	},
+	data () {
 		return {
-			count: 0,
-			show: false,
-			interval: Function
+			arr: [{ url: '//i0.hdslb.com/bfs/archive/6d2872d933bc61c8f6521be2d9b5595ad04760c4.jpg@880w_388h_1c_95q', text: '英雄救美，名场面在线' }, { url: 'https://i0.hdslb.com/bfs/sycp/creative_img/202011/096a3deee0a6619caa5aafb5187783e7.jpg@880w_388h_1c_95q', text: '来领教魔女的魅力吧' }, { url: '//i0.hdslb.com/bfs/archive/5acf2501846f01ec5797203c2438e70548954d3a.png@880w_388h_1c_95q', text: '《说唱新世代》总决赛幕后全记录' }, { url: '//i0.hdslb.com/bfs/archive/a73aa30354df3a511b815c74699747458e1e5df3.jpg@880w_388h_1c_95q', text: '百万情感故事征稿火热进行中' }, { url: '//i0.hdslb.com/bfs/archive/5fcf72ec8675547219cf1dad3533876ccf46c869.jpg@880w_388h_1c_95q', text: '全方位拆解，看看30多年前的电脑有多复杂' }],
+			idx: 0
 		}
 	},
-	computed: {
-		...mapGetters([
-			'requesting',
-			'error',
-			'bannerlist'
-		])
-	},
-	mounted() {
-		this.startInterval()
-		this.$store.dispatch('bannerlist')
-	},
-	methods: {
-		cutItem(index) { 
-			this.count = index
-			let distance = -100 * this.count
-			let left = distance + "%"
-			this.$refs.banner.style.marginLeft = left
-
-			//点击圆点停止计时 并重新开启
-			clearInterval(this.interval)
-			this.startInterval()
-		},
-		startInterval() {
-			//轮播图定时滚动
-			this.interval = setInterval(() => {
-				this.count ++ 
-				if (this.count === 5) {
-					this.count = 0
-				}
-				let distance = -100 * this.count
-				let left = distance + "%"
-				if (this.$refs.banner) {
-					this.$refs.banner.style.marginLeft = left
-				}
-			}, 5000)
+  computed: {
+  },
+  methods: {
+		changeIdx (data) {
+			this.idx = data
 		}
-	},
-	components: {
-		BannerItem
-	}
+  },
+  mounted: function () {
+    setInterval(() => {
+			if(this.idx < this.arr.length-1){
+				this.idx++
+			}
+			else{
+				this.idx = 0
+			}
+		}, 3000);
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
-	.banner
-		height 220px
-		width 440px
-		.topic-preview-wrapper
-			position relative
-			height 100%
-			width 100%
-			a
-				color #fff
-			.topic-preview-list-wrapper
-				overflow hidden
-				border-radius 4px
-				.topic-preview
-					width 500%
-					height 100%
-					transition .2s
-			.more-topic
-				position absolute
-				right 15px
-				bottom 35px
-				color #fff
-				background rgba(0,0,0,0.64)
-				width 50px
-				height 24px
-				line-height 24px
-				text-align center
-				border-radius 4px
-				transition .2s all linear
-				&:hover
-					text-shadow 0 0 3px #fff
-					color #fff
-				.b-icon
-					display inline-block
-					vertical-align middle
-					width 6px
-					height 12px
-					margin -2px 0 0 5px
-					background url(../../assets/images/icons.png) no-repeat
-					background-position -541px -218px
-			.s-bottom
-				position absolute
-				bottom 0
-				left 0
-				width 100%
-				height 35px
-				background linear-gradient(transparent,rgba(0,0,0,0.1) 20%,rgba(0,0,0,0.2) 35%,rgba(0,0,0,0.5) 65%,rgba(0,0,0,0.66))
-				border-radius 0 0 4px 4px
-				.title
-					position absolute
-					bottom 0
-					vertical-align top
-					left 20px
-					top 0
-					height 35px
-					line-height 35px
-					width 50%
-					overflow hidden
-					white-space nowrap
-					text-overflow ellipsis
-					color #fff
-					font-size 14px
-				.slide-bar
-					position absolute
-					right 5px
-					bottom 5px
-					overflow hidden
-					padding 2px 5px
-					li
-						float left
-						cursor pointer
-						width 18px
-						height 18px
-						margin 2px 2px
-						background url(../../assets/images/icons.png) -855px -790px no-repeat
-						&:hover
-							background-position -919px -790px
-						&.on
-							background-position -855px -727px
+.wrap{
+  position: relative;
+  overflow: hidden;
+  p{
+    position: absolute;
+    bottom: 10px;
+    color: white;
+    font-size: 14px;
+  }
+  .point-wrap{
+    display: grid;
+    grid-template-columns: repeat(5,15px);
+    grid-column-gap: 5px;
+    position: absolute;
+    top: 220px;
+    right: 10px;
+    .point{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: white;
+      cursor: pointer;
+    }
+    .pointChecked{
+      box-sizing: border-box;
+      border:2px solid white;
+      background-color: hsl(195, 69%, 67%);
+    }
+    .point:hover{
+      box-sizing: border-box;
+      border:2px solid white;
+      background-color: hsl(195, 69%, 67%);
+    }
+  }
+}
 </style>

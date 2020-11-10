@@ -1,19 +1,19 @@
 <template>
 	<ul class="s-menu">
 		<li>
-			<a href="http://member.bilibili.com/v/video/submit.html" target="_blank">
+			<a href="http://member.bilibili.com/v/video/submit.html" >
 				<i class="b-icon b-icon-vp"></i>
 				<em>视频投稿</em>
 			</a>
 		</li>
 		<li>
-			<a href="http://member.bilibili.com/v/#!/article" target="_blank">
+			<a href="http://member.bilibili.com/v/#!/article" >
 				<i class="b-icon b-icon-vm"></i>
 				<em>投稿管理</em>
 			</a>
 		</li>
 		<li>
-			<a href="http://member.bilibili.com/v/" target="_blank">
+			<a href="http://member.bilibili.com/v/" >
 				<i class="b-icon b-icon-vc"></i>
 				<em>创作中心</em>
 			</a>
@@ -35,6 +35,7 @@ export default {
 		right 0px
 		z-index 15
 		width 216px
+		height 78px
 		border 0
 		transition .2s
 		border-radius 0 0 4px 4px
